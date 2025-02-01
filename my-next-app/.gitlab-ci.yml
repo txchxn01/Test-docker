@@ -1,0 +1,26 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  VERCEL_ORG_ID: team_B2nqL5oP9lQWsPtfqCr8K8EJ
+  VERCEL_PROJECT_ID: prj_GCt0Yl8RQMBkljSi8L0baB8s6kXC
+  VERCEL_TOKEN: JXL2rC3reKvPWfnLlxBRPfIR
+
+build:
+  stage: build
+  image: node:18
+  script:
+    - npm install
+    - npm run build
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  image: node:18
+  script:
+    - npm install -g vercel
+    - vercel --token $VERCEL_TOKEN --prod
+  only:
+    - main
